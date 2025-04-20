@@ -1,0 +1,38 @@
+#!/bin/zsh
+
+# Configure history
+HISTFILE=~/.cache/.zsh_history
+HISTSIZE=5000
+SAVEHIST=5000
+setopt share_history
+setopt extended_history
+setopt hist_ignore_space
+setopt hist_ignore_all_dups
+
+# Configure other zsh options
+setopt autocd
+bindkey -v
+autoload -Uz compinit #promptinit
+compinit
+#promptinit
+
+# This will set the default prompt to the walters theme
+# prompt adam2
+eval "$(oh-my-posh init zsh --config ~/.config/posh/catppuccin.json)"
+
+# Aliases
+alias ls='ls -h --color=auto'
+alias ll='ls -hl --color=auto'
+alias la='ls -hlA --color=auto'
+alias grep='grep --color=auto'
+alias cat='bat'
+alias vim='nvim'
+alias vi='vim'
+
+# Export envs
+export EDITOR=code
+export VISUAL=code
+export MANPAGER="sh -c 'sed -u -e \"s/\\x1B\[[0-9;]*m//g; s/.\\x08//g\" | bat -p -lman'"
+
+# New terminal window display
+fastfetch --load-config ~/.config/fastfetch/init.jsonc
