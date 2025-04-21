@@ -12,13 +12,14 @@ setopt hist_ignore_all_dups
 # Configure other zsh options
 setopt autocd
 bindkey -v
-autoload -Uz compinit #promptinit
+autoload -Uz compinit promptinit
 compinit
-#promptinit
 
-# This will set the default prompt to the walters theme
-# prompt adam2
-eval "$(oh-my-posh init zsh --config ~/.config/posh/catppuccin.json)"
+# set prompt, use builtin for tty, else oh-my-posh
+case $(tty) in 
+  (/dev/tty[1-9]) promptinit && prompt adam1;; 
+              (*) eval "$(oh-my-posh init zsh --config ~/.config/posh/catppuccin.json)";; 
+esac
 
 # Aliases
 alias ls='ls -h --color=auto'
