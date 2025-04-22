@@ -9,15 +9,28 @@ setopt extended_history
 setopt hist_ignore_space
 setopt hist_ignore_all_dups
 
+# Zinit - add plugins 
+source /usr/share/zinit/zinit.zsh # using zinit AUR package
+
+zinit light zsh-users/zsh-syntax-highlighting
+zinit light zsh-users/zsh-completions
+zinit light zsh-users/zsh-autosuggestions
+
+# Load and style completions
+autoload -Uz compinit && compinit 
+zinit cdreplay -q
+
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' menu select 
+
 # Configure other zsh options
 setopt autocd
 bindkey -v
-autoload -Uz compinit promptinit
-compinit
 
 # set prompt, use builtin for tty, else oh-my-posh
 case $(tty) in 
-  (/dev/tty[1-9]) promptinit && prompt adam1;; 
+  (/dev/tty[1-9]) autoload -Uz promptinit && promptinit && prompt adam1;; 
               (*) eval "$(oh-my-posh init zsh --config ~/.config/posh/catppuccin.json)";; 
 esac
 
