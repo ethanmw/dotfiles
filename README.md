@@ -11,7 +11,7 @@ User configuration files for my Linux system. Designed to be managed with GNU St
 - systemd, uwsm
 - hyprland, hyprlock, hypridle, hyprpaper
 - waybar, swaync
-- zsh, zinit, oh-my-posh, fastfetch, bat
+- zsh, zinit, oh-my-posh, fzf, fastfetch, bat
 - ghostty, rofi-wayland, code
 - catppuccin-cursors-mocha
 

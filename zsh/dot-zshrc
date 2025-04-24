@@ -15,6 +15,10 @@ source /usr/share/zinit/zinit.zsh # using zinit AUR package
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
+zinit light Aloxaf/fzf-tab
+
+zinit snippet OMZP::sudo
+zinit snippet OMZP::command-not-found
 
 # Load and style completions
 autoload -Uz compinit && compinit 
@@ -22,11 +26,17 @@ zinit cdreplay -q
 
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
-zstyle ':completion:*' menu select 
+zstyle ':completion:*' menu no
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 
 # Configure other zsh options
 setopt autocd
 bindkey -v
+bindkey '^ ' autosuggest-accept
+bindkey '^p' history-search-backward
+bindkey '^n' history-search-forward
+bindkey -a 'k' history-search-backward
+bindkey -a 'j' history-search-forward
 
 # set prompt, use builtin for tty, else oh-my-posh
 case $(tty) in 
@@ -44,9 +54,12 @@ alias vim='nvim'
 alias vi='vim'
 
 # Export envs
-export EDITOR=code
-export VISUAL=code
+export EDITOR=nvim
+export VISUAL=nvim
 export MANPAGER="sh -c 'sed -u -e \"s/\\x1B\[[0-9;]*m//g; s/.\\x08//g\" | bat -p -lman'"
+
+# Shell integrations
+source <(fzf --zsh)
 
 # New terminal window display
 fastfetch --load-config ~/.config/fastfetch/init.jsonc
